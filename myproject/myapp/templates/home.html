@@ -1,0 +1,18 @@
+{% extends "myapp/base.html" %}
+{% block content %}
+    <h2>Items</h2>
+    <a href="{% url 'item_create' %}" class="btn btn-success mb-2">Create New Item</a>
+    {% for item in items %}
+        <div class="card mb-2">
+            <div class="card-body">
+                <h5 class="card-title">{{ item.title }}</h5>
+                <p class="card-text">{{ item.description }}</p>
+                <a href="{% url 'item_edit' item.pk %}" class="btn btn-info">Edit</a>
+                <form method="POST" action="{% url 'item_delete' item.pk %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
